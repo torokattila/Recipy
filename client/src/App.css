@@ -1,178 +1,31 @@
 body {
-	background-color: #F06292;
+	background-color: #f06292;
 }
 
 .App {
 	text-align: center;
 }
 
-.login-page-container {
-  padding-top: 10vw;
-  display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 10vw;
+#swal2-content {
+	font-family: 'Bree Serif', serif !important;
+	color: #616161 !important;
 }
 
-.login-page-main-title {
-  font-family: 'Rampart One', cursive;
-  font-size: 5vw;
-  color: #fff;
+.swal2-popup {
+	border-radius: 20px !important;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
 }
 
-.login-page-subtitle {
-  font-family: 'Bree Serif', serif;
-  color: #fff;
-  font-size: 1.2vw;
-  margin-top: -1vw;
+.swal2-confirm {
+	transition: 0.4s !important;
+	background-color: #f06292 !important;
+	border-color: #fff !important;
+	border-radius: 25px !important;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
 }
 
-.login-page-login-card-container {
-  border-radius: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	width: 40vw;
-	height: auto;
-  padding: 1.5vw;
-	background-color: #fff;
-}
-
-.login-page-card-header-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-page-card-header-container h1 {
-  color: #ef3976;
-  font-family: 'Bree Serif', serif;
-  font-size: 3vw;
-}
-
-.credentials-input-field {
-  transition: 0.2s;
-  width: 20vw;
-  border: none;
-  border-bottom: 1px solid silver;
-  padding: 1.5vw;
-  font-size: 1vw;
-}
-
-.credentials-input-field:focus {
-  transition: 0.2s;
-  outline: none;
-  border-bottom: 2px solid #ef3976;
-}
-
-.login-button-container {
-  margin-top: 5vw;
-  margin-bottom: 2vw;
-}
-
-.login-button {
-  border: none;
-  color: #fff;
-  padding: 0.9vw;
-  width: 10vw;
-  font-size: 1.2vw;
-  font-family: 'Bree Serif', serif;
-  border-radius: 5px;
-  background-color: #F06292;
-  cursor: pointer;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.4s;
-}
-
-.login-button:hover {
-  transition: 0.4s;
-  background-color: #E91E63;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.329);
-}
-
-.show-password-icon {
-  color: black !important;
-  position: absolute;
-  font-size: 1.5vw !important;
-  margin-left: -3vw;
-  margin-top: 1.2vw;
-  cursor: pointer;
-}
-
-@media only screen and (max-width: 600px) {
-  .login-page-container {
-    padding-top: 17vw;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding-bottom: 20vw;
-  }
-  
-  .login-page-main-title {
-    font-family: 'Rampart One', cursive;
-    font-size: 15vw;
-    color: #fff;
-  }
-  
-  .login-page-subtitle {
-    font-family: 'Bree Serif', serif;
-    color: #fff;
-    font-size: 5vw;
-    margin-top: -1vw;
-  }
-  
-  .login-page-login-card-container {
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    width: 70vw;
-    height: auto;
-    padding: 5vw;
-    background-color: #fff;
-    margin-top: 10vw;
-  }
-  
-  .login-page-card-header-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .login-page-card-header-container h1 {
-    color: #ef3976;
-    font-size: 8vw;
-  }
-  
-  .credentials-input-field {
-    width: 42vw;
-    padding: 4vw;
-    font-size: 3.6vw;
-  }
-  
-  .login-button-container {
-    margin-top: 16vw;
-    margin-bottom: 5vw;
-  }
-  
-  .login-button {
-    border: none;
-    color: #fff;
-    padding: 2.5vw;
-    width: 25vw;
-    font-size: 3.5vw;
-  }
-  
-  .login-button:hover {
-    transition: 0.4s;
-    background-color: #E91E63;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.329);
-  }
-  
-  .show-password-icon {
-    color: black !important;
-    position: absolute;
-    font-size: 5vw !important;
-    margin-left: -7vw;
-    margin-top: 3.7vw;
-    cursor: pointer;
-  }
+.swal2-confirm:hover {
+	transition: 0.4s !important;
+	background-color: #e91e63 !important;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.329) !important;
 }

@@ -1,0 +1,277 @@
+.login-page-container {
+	padding-top: 7vw;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 100%;
+	padding-bottom: 10vw;
+}
+
+.login-page-main-title {
+	font-family: 'Rampart One', cursive;
+	font-size: 5vw;
+	color: #fff;
+}
+
+.login-page-subtitle {
+	font-family: 'Bree Serif', serif;
+	color: #fff;
+	font-size: 1.2vw;
+	margin-top: -1vw;
+}
+
+.login-page-login-card-container {
+	border-radius: 5px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	width: 40vw;
+	height: auto;
+	padding: 1.5vw;
+	background-color: #fff;
+}
+
+.login-page-card-header-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.login-page-card-header-container h1 {
+	color: #ef3976;
+	font-family: 'Bree Serif', serif;
+	font-size: 3vw;
+}
+
+.credentials-input-field {
+	transition: 0.2s;
+	width: 20vw;
+	border: none;
+	border-bottom: 1px solid silver;
+	padding: 1.5vw;
+	font-size: 1vw;
+}
+
+.credentials-input-field:focus {
+	transition: 0.2s;
+	outline: none;
+	border-bottom: 2px solid #ef3976;
+}
+
+.login-button-container {
+	margin-top: 5vw;
+	margin-bottom: 2vw;
+}
+
+.login-button {
+	border: none;
+	color: #fff;
+	padding: 0.9vw;
+	width: 15vw;
+	font-size: 1.2vw;
+	font-family: 'Bree Serif', serif;
+	border-radius: 50px;
+	background-color: #f06292;
+	cursor: pointer;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: 0.4s;
+}
+
+.login-button:hover {
+	transition: 0.4s;
+	background-color: #e91e63;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.329);
+}
+
+.show-password-icon {
+	color: black !important;
+	position: absolute;
+	font-size: 1.5vw !important;
+	margin-left: -3vw;
+	margin-top: 1.2vw;
+	cursor: pointer;
+}
+
+.account-question-container {
+	margin-top: 3vw;
+	font-family: 'Bree Serif', serif;
+	margin-bottom: 2vw;
+}
+
+.account-question {
+	color: #e91e63;
+	font-size: 1vw;
+}
+
+.login-signup-link {
+	color: #f06292;
+	font-size: 1.2vw;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.login-signup-link:hover {
+	transition: 0.3s;
+	color: #e91e63;
+}
+
+.or-google-login {
+	font-size: 1.3vw;
+	font-family: 'Bree Serif', serif;
+	color: #ef3976;
+}
+
+.google-login-button {
+	border-radius: 30px !important;
+	padding: 0.3vw !important;
+	border: 2px solid #ef3976 !important;
+	width: 12vw !important;
+	font-size: 1.2vw !important;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
+	transition: 0.4s !important;
+	color: #e91e63 !important;
+}
+
+.google-login-button:hover {
+  color: #fff !important;
+  border: 2px solid #f06292 !important;
+	transition: 0.4s !important;
+  background-color: #f06292 !important;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.329) !important;
+}
+
+.google-login-button:hover div {
+  transition: 0.4s !important;
+  background-color: #f06292 !important;
+}
+
+.google-login-button span {
+	display: table !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.google-login-button div {
+  transition: 0.4s !important;
+	padding: 0.1vw !important;
+	padding-left: 0.7vw !important;
+	border-radius: 30px !important;
+}
+
+@media only screen and (max-width: 600px) {
+	.login-page-container {
+		padding-top: 7vw;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		padding-bottom: 20vw;
+	}
+
+	.login-page-main-title {
+		font-family: 'Rampart One', cursive;
+		font-size: 15vw;
+		color: #fff;
+	}
+
+	.login-page-subtitle {
+		font-family: 'Bree Serif', serif;
+		color: #fff;
+		font-size: 5vw;
+		margin-top: -1vw;
+	}
+
+	.login-page-login-card-container {
+		border-radius: 5px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		width: 70vw;
+		height: auto;
+		padding: 5vw;
+		background-color: #fff;
+		margin-top: 10vw;
+	}
+
+	.login-page-card-header-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.login-page-card-header-container h1 {
+		color: #ef3976;
+		font-size: 8vw;
+	}
+
+	.credentials-input-field {
+		width: 45vw;
+		padding: 4vw;
+		font-size: 3.9vw;
+	}
+
+	.login-button-container {
+		margin-top: 16vw;
+		margin-bottom: 5vw;
+	}
+
+	.login-button {
+		border: none;
+		color: #fff;
+		padding: 3.5vw;
+		width: 30vw;
+		font-size: 3.5vw;
+	}
+
+	.login-button:hover {
+		transition: 0.4s;
+		background-color: #e91e63;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.329);
+	}
+
+	.show-password-icon {
+		color: black !important;
+		position: absolute;
+		font-size: 5vw !important;
+		margin-left: -7vw;
+		margin-top: 3.7vw;
+		cursor: pointer;
+	}
+
+	.account-question-container {
+		margin-top: 10vw;
+		font-family: 'Bree Serif', serif;
+		margin-bottom: 4vw;
+	}
+
+	.account-question {
+		color: #e91e63;
+		font-size: 4vw;
+	}
+
+	.login-signup-link {
+		color: #f06292;
+		font-size: 4vw;
+		cursor: pointer;
+		transition: 0.3s;
+	}
+
+	.or-google-login {
+		font-family: 'Bree Serif', serif;
+		font-size: 3vw;
+		color: #ef3976;
+	}
+
+	.google-login-button {
+		border-radius: 30px !important;
+		padding: 0.3vw !important;
+		border: 2px solid #ef3976 !important;
+		width: 30vw !important;
+		font-size: 3.5vw !important;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
+		transition: 0.4s !important;
+		color: #e91e63 !important;
+	}
+
+	.google-login-button div {
+		padding: 0.1vw !important;
+		padding-left: 2vw !important;
+		border-radius: 30px !important;
+	}
+}
