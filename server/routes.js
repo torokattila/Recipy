@@ -21,7 +21,7 @@ setInterval(function() {
 db.query(`USE ${db.database}`);
 
 module.exports = function(app) {
-    app.use(bodyParser.urlencoded({ extended: true }));
+	app.use(bodyParser.urlencoded({ extended: true }));
 
 	app.get("/api/auth", validateToken, (req, res) => {
 		const userId = req.user.id;
@@ -175,7 +175,7 @@ module.exports = function(app) {
 
 	app.post("/api/register", (req, res) => {
 		let { username, password, passwordAgain } = req.body;
-		
+
 		username = username.trim();
 		password = password.trim();
 		passwordAgain = passwordAgain.trim();
@@ -245,6 +245,34 @@ module.exports = function(app) {
 								);
 							}
 						);
+					}
+				}
+			);
+		}
+	});
+
+	app.post("/api/createrecipe", validateToken, (req, res) => {
+		let recipe = req.body;
+		const userId = req.user.id;
+		const insertRecipeQuery =
+			"INSERT INTO recipies SET user_id = ?, title = ?, content = ?;";
+
+		recipe.title = recipe.title.trim();
+
+		if (recipe.title === "") {
+			res.json({ error: "Add a title to your recipe!" });
+		} else {
+			db.query(
+				insertRecipeQuery,
+				[userId, recipe.title, recipe.preparation],
+				(insertError, insertResult) => {
+					if (insertError) {
+						console.log(insertError);
+						res.json({
+							error: "Something went wrong, please try again!"
+						});
+					} else if (insertResult) {
+						res.json({ success: "Created the recipe" });
 					}
 				}
 			);

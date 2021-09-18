@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect } from "react";
 import HomeContainer from "../containers/HomeContainer";
 import Navbar from "../shared/Navbar";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -6,10 +6,18 @@ import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
 import Backdrop from "@material-ui/core/Backdrop";
 import { makeStyles } from "@material-ui/core/styles";
+import { AuthContext } from "../helpers/AuthContext";
 import "./Home.css";
 
 function Home() {
-	const { openModal, handleOpenModal, handleCloseModal } = HomeContainer();
+	const {
+		setRecipeTitle,
+        setRecipePreparation,
+		openModal,
+		handleOpenModal,
+		handleCloseModal,
+		handleSubmitRecipe
+	} = HomeContainer();
 	const useStyles = makeStyles(theme => ({
 		modal: {
 			display: "flex",
@@ -53,6 +61,7 @@ function Home() {
 									type="text"
 									placeholder="Recipe title"
 									className="recipe-title-input"
+									onChange={event => setRecipeTitle(event.target.value)}
 								/>
 							</div>
 
@@ -60,11 +69,15 @@ function Home() {
 								<textarea
 									placeholder="Preparation"
 									className="recipe-preparation-textarea"
+									onChange={event => setRecipePreparation(event.target.value)}
 								/>
 							</div>
 
 							<div className="create-recipe-button-container">
-								<button className="create-recipe-button">
+								<button
+									className="create-recipe-button"
+									onClick={handleSubmitRecipe}
+								>
 									Create
 								</button>
 							</div>
