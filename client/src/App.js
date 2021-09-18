@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -35,36 +35,22 @@ function App() {
     });
   }, []);
 
-  if (!authState.status) {
-    return (
-      <div className="App">
-        <AuthContext.Provider value={{authState, setAuthState}}>
+  return (
+    <div className="App">
+      <AuthContext.Provider value={{authState, setAuthState}}>
           <Router>
             <Switch>
               <>
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
+                <Route exact path="/" component={Home} />
+                <Route exact path="/profile" component={Profile} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Signup} />
               </>
             </Switch>
           </Router>
-        </AuthContext.Provider>
-      </div>
-    )
-  } else {
-
-	return (
-		<div className="App">
-      <AuthContext.Provider value={{authState, setAuthState}}>
-			<Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/profile" component={Profile} />
-        </Switch>
-      </Router>
       </AuthContext.Provider>
-		</div>
-	);
-  }
+    </div>
+  )
 }
 
 export default App;

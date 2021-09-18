@@ -1,0 +1,117 @@
+.navbar-container {
+    height: 4.5vw;
+    width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    top: 0 !important;
+    background-color: #f1d1dc !important;
+    position: fixed;
+}
+
+.icons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-icon {
+    justify-content: center;
+    font-size: 2.7vw !important;
+    color: #e71259 !important;
+    padding: 0 !important;
+}
+
+.profile-icon {
+    justify-content: center;
+    font-size: 2.5vw !important;
+    color: #e71259 !important;
+}
+
+.logout-icon {
+    justify-content: center;
+    font-size: 2.5vw !important;
+    color: #e71259 !important;
+    padding: 0 !important;
+}
+
+ul {
+    padding: 0;
+    list-style: none !important;
+}
+
+li {
+    display: inline-block;
+    padding: 0.7vw;
+    transition: 0.4s;
+    cursor: pointer;
+    margin-top: -1vw;
+    border-radius: 10px;
+    margin-left: 1vw;
+}
+
+li:hover {
+    transition: 0.4s;
+    background-color: #eeb6c8;
+    padding-bottom: -1vw;
+}
+
+.page-logo {
+    margin-top: -1vw;
+    left: 2vw;
+    position: absolute;
+    padding: 0.7vw;
+    width: 3vw;
+    height: 3vw;
+    cursor: pointer;
+}
+
+.tooltip {
+    padding: 10vw;
+}
+
+@media only screen and (max-width: 600px) {
+    .navbar-container {
+        height: 20vw;
+    }
+    
+    .home-icon {
+        font-size: 12vw !important;
+    }
+    
+    .profile-icon {
+        font-size: 11vw !important;
+    }
+    
+    .logout-icon {
+        justify-content: center;
+        font-size: 12vw !important;
+        color: #e71259 !important;
+        padding: 0 !important;
+    }
+    
+    li {
+        display: inline-block;
+        padding: 1vw !important;
+        transition: 0.4s;
+        cursor: pointer;
+        margin-top: -1vw;
+        border-radius: 10px;
+        margin-left: 3vw;
+    }
+    
+    li:hover {
+        transition: 0.4s;
+        background-color: #eeb6c8;
+        padding-bottom: -1vw;
+    }
+
+    .page-logo {
+        margin-top: -2vw;
+        left: 2vw;
+        position: absolute;
+        padding: 0.7vw;
+        width: 13.5vw;
+        height: 13.5vw;
+    }
+}

@@ -1,25 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { AuthContext } from "../helpers/AuthContext";
+import HomeContainer from "../containers/HomeContainer";
+import Navbar from "../shared/Navbar";
 
 function Home() {
-	const { authState, setAuthState } = useContext(AuthContext);
-	let history = useHistory();
-
-	console.log(history);
-
-	useEffect(() => {
-		if (!localStorage.getItem("accessToken")) {
-			console.log("nincs token");
-			history.push("/login")
-		} else {
-			
-		}
-	}, []);
+	const history = useHistory();
 
 	return (
 		<div>
-			<h2>hello</h2>
+			<Navbar />
+			<h1>home</h1>
 		</div>
 	);
 }

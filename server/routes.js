@@ -25,6 +25,7 @@ module.exports = function(app) {
 
 	app.get("/api/auth", validateToken, (req, res) => {
 		const userId = req.user.id;
+
 		const getUsernameQuery = "SELECT username FROM user WHERE id = ?;";
 
 		db.query(getUsernameQuery, userId, (error, result) => {

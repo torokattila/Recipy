@@ -1,9 +1,10 @@
 import React from 'react';
+import Navbar from '../shared/Navbar';
 
 function Profile() {
     return (
         <div>
-            <h1>Profile</h1>
+            <Navbar />
         </div>
     )
 }
