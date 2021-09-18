@@ -57,7 +57,7 @@ function Navbar() {
 					}}
 				/>
 				<ul>
-					<Tooltip title="Home Page">
+					<Tooltip title="Home Page" arrow>
 						<li>
 							<HomeIcon
 								className="home-icon"
@@ -68,7 +68,7 @@ function Navbar() {
 						</li>
 					</Tooltip>
 
-					<Tooltip title="Profile">
+					<Tooltip title="Profile" arrow>
 						<li>
 							<AccountCircle
 								className="profile-icon"
@@ -77,7 +77,7 @@ function Navbar() {
 						</li>
 					</Tooltip>
 
-					<Tooltip title="Logout">
+					<Tooltip title="Logout" arrow>
 						<li>
 							<ExitToAppRounded
 								className="logout-icon"

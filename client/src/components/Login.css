@@ -132,16 +132,16 @@
 }
 
 .google-login-button:hover {
-  color: #fff !important;
-  border: 2px solid #f06292 !important;
+	color: #fff !important;
+	border: 2px solid #f06292 !important;
 	transition: 0.4s !important;
-  background-color: #f06292 !important;
+	background-color: #f06292 !important;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.329) !important;
 }
 
 .google-login-button:hover div {
-  transition: 0.4s !important;
-  background-color: #f06292 !important;
+	transition: 0.4s !important;
+	background-color: #f06292 !important;
 }
 
 .google-login-button span {
@@ -151,7 +151,7 @@
 }
 
 .google-login-button div {
-  transition: 0.4s !important;
+	transition: 0.4s !important;
 	padding: 0.1vw !important;
 	padding-left: 0.7vw !important;
 	border-radius: 30px !important;
