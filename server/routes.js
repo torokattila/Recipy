@@ -278,4 +278,34 @@ module.exports = function(app) {
 			);
 		}
 	});
+
+	app.get("/api/getrecipies", validateToken, (req, res) => {
+		const userId = req.user.id;
+		const selectRecipiesQuery = "SELECT * FROM recipies WHERE user_id = ?";
+
+		db.query(selectRecipiesQuery, userId, (selectError, selectResult) => {
+			if (selectError) {
+				console.log(selectError);
+				res.json({ error: "Cannot get the recipies!" });
+			} else if (selectResult) {
+				const listOfRecipies = JSON.parse(JSON.stringify(selectResult));
+
+				res.json({ recipiesList: listOfRecipies });
+			}
+		});
+	});
+
+	app.delete("/api/deleterecipe/:recipeId", validateToken, (req, res) => {
+		const recipeId = req.params.recipeId;
+		const deleteRecipeQuery = "DELETE FROM recipies WHERE recipe_id = ?;"
+
+		db.query(deleteRecipeQuery, recipeId, (deleteError, deleteResult) => {
+			if (deleteError) {
+				console.log(deleteError);
+				res.json({ error: "There was an error with the delete, please try again!" });
+			} else if (deleteResult) {
+				res.json("Recipe deleted!");
+			}
+		});
+	});
 };

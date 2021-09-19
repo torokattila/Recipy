@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -30,8 +30,6 @@ function NavbarContainer() {
 	return {
 		handleLogout
 	};
-
-	return {};
 }
 
 export default NavbarContainer;

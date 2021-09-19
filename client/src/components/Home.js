@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import HomeContainer from "../containers/HomeContainer";
 import Navbar from "../shared/Navbar";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -12,11 +12,13 @@ import "./Home.css";
 function Home() {
 	const {
 		setRecipeTitle,
-        setRecipePreparation,
+		setRecipePreparation,
 		openModal,
 		handleOpenModal,
 		handleCloseModal,
-		handleSubmitRecipe
+		handleSubmitRecipe,
+		userRecipies,
+		handleDeleteRecipe
 	} = HomeContainer();
 	const useStyles = makeStyles(theme => ({
 		modal: {
@@ -38,6 +40,45 @@ function Home() {
 	return (
 		<div>
 			<Navbar />
+
+			{userRecipies.length === 0
+				? <div className="no-recipies-title-container">
+						<p>Looks like You have no recipies yet.</p>
+						<p>
+							Click the + sign on the bottom of the screen to create
+							some!
+						</p>
+					</div>
+				: <div className="recipies-list-container">
+						{userRecipies.map(recipe => {
+							return (
+								<div
+									className="recipe-card-container"
+									key={recipe.recipe_id}
+								>
+									<button
+										className="delete-recipe-button"
+										onClick={() => {
+											handleDeleteRecipe(recipe.recipe_id);
+										}}
+									>
+										x
+									</button>
+									<div className="recipe-card-title-container">
+										<h1>
+											{recipe.title}
+										</h1>
+									</div>
+
+									<div className="recipe-card-content-container">
+										<p>
+											{recipe.content}
+										</p>
+									</div>
+								</div>
+							);
+						})}
+					</div>}
 
 			<Modal
 				aria-labelledby="transition-modal-title"
@@ -61,7 +102,8 @@ function Home() {
 									type="text"
 									placeholder="Recipe title"
 									className="recipe-title-input"
-									onChange={event => setRecipeTitle(event.target.value)}
+									onChange={event =>
+										setRecipeTitle(event.target.value)}
 								/>
 							</div>
 
@@ -69,7 +111,10 @@ function Home() {
 								<textarea
 									placeholder="Preparation"
 									className="recipe-preparation-textarea"
-									onChange={event => setRecipePreparation(event.target.value)}
+									onChange={event =>
+										setRecipePreparation(
+											event.target.value
+										)}
 								/>
 							</div>
 

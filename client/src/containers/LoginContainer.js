@@ -10,7 +10,7 @@ function LoginContainer() {
     const [hidePassword, setHidePassword] = useState(true);
 	const [isPassword, setIsPassword] = useState(true);
 
-    const { authState, setAuthState } = useContext(AuthContext);
+    const { setAuthState } = useContext(AuthContext);
     const history = useHistory();
 
     const togglePasswordIcon = () => {
