@@ -5,6 +5,10 @@ import { useHistory } from "react-router-dom";
 
 function HomeContainer() {
 	const [openModal, setOpenModal] = useState(false);
+	const [isCreateRecipeModal, setIsCreateRecipeModal] = useState(false);
+	const [recipeModalId, setRecipeModalId] = useState(null);
+	const [modalRecipeTitle, setModalRecipeTitle] = useState("");
+	const [modalRecipeContent, setModalRecipeContent] = useState("");
 	const [recipeTitle, setRecipeTitle] = useState("");
 	const [recipePreparation, setRecipePreparation] = useState("");
 	const [userRecipies, setUserRecipies] = useState([]);
@@ -12,7 +16,16 @@ function HomeContainer() {
 	const history = useHistory();
 
 	const handleOpenModal = () => {
+		setIsCreateRecipeModal(true);
 		setOpenModal(true);
+	};
+
+	const handleOpenRecipeModal = (recipeId, modalRecipeTitle, modalRecipeContent) => {
+		setOpenModal(true);
+		setIsCreateRecipeModal(false);
+		setRecipeModalId(recipeId);
+		setModalRecipeTitle(modalRecipeTitle);
+		setModalRecipeContent(modalRecipeContent);
 	};
 
 	const handleCloseModal = () => {
@@ -107,14 +120,19 @@ function HomeContainer() {
 	}, []);
 
 	return {
+		recipeModalId,
 		setRecipeTitle,
 		setRecipePreparation,
 		openModal,
+		isCreateRecipeModal,
 		handleOpenModal,
+		handleOpenRecipeModal,
 		handleCloseModal,
 		handleSubmitRecipe,
 		userRecipies,
-		handleDeleteRecipe
+		handleDeleteRecipe,
+		modalRecipeTitle,
+		modalRecipeContent
 	};
 }
 

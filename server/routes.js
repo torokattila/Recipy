@@ -255,7 +255,7 @@ module.exports = function(app) {
 		let recipe = req.body;
 		const userId = req.user.id;
 		const insertRecipeQuery =
-			"INSERT INTO recipies SET user_id = ?, title = ?, content = ?;";
+			"INSERT INTO recipies SET user_id = ?, title = ?, content = ?, created_at = NOW();";
 
 		recipe.title = recipe.title.trim();
 
@@ -281,7 +281,7 @@ module.exports = function(app) {
 
 	app.get("/api/getrecipies", validateToken, (req, res) => {
 		const userId = req.user.id;
-		const selectRecipiesQuery = "SELECT * FROM recipies WHERE user_id = ?";
+		const selectRecipiesQuery = "SELECT * FROM recipies WHERE user_id = ? ORDER BY created_at DESC";
 
 		db.query(selectRecipiesQuery, userId, (selectError, selectResult) => {
 			if (selectError) {
