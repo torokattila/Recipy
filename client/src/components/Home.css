@@ -130,8 +130,18 @@
 	color: #fff;
 }
 
+.welcome-message-container {
+	padding-top: 5vw;
+}
+
+.welcome-message {
+	font-family: 'Rampart One', cursive;
+	color: #fff;
+	font-size: 3vw;
+}
+
 .no-recipies-title-container {
-	padding-top: 10vw;
+	padding-top: 1vw;
 }
 
 .no-recipies-title-container p {
@@ -141,7 +151,7 @@
 }
 
 .recipies-list-container {
-	padding-top: 10vw;
+	padding-top: 0.5vw;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -225,8 +235,18 @@
 		text-align: center;
 	}
 
+	.welcome-message-container {
+		padding-top: 26vw;
+	}
+	
+	.welcome-message {
+		font-family: 'Rampart One', cursive;
+		color: #fff;
+		font-size: 8vw;
+	}
+
 	.no-recipies-title-container {
-		padding-top: 35vw;
+		padding-top: 2vw;
 	}
 
 	.no-recipies-title-container p {
@@ -234,7 +254,7 @@
 	}
 
 	.recipies-list-container {
-		padding-top: 30vw;
+		padding-top: 8vw;
 		display: flex;
 		flex-wrap: nowrap;
 		flex-direction: column;

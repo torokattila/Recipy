@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import HomeContainer from "../containers/HomeContainer";
 import Navbar from "../shared/Navbar";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -24,10 +24,15 @@ function Home() {
 		modalRecipeTitle,
 		modalRecipeContent
 	} = HomeContainer();
+	const { authState } = useContext(AuthContext);
 
 	return (
 		<div>
 			<Navbar />
+
+			<div className="welcome-message-container">
+				<h3 className="welcome-message">Welcome {authState.username}!</h3>
+			</div>
 
 			{userRecipies.length === 0
 				? <div className="no-recipies-title-container">

@@ -103,7 +103,7 @@ function HomeContainer() {
 		});
 	}
 
-	useEffect(() => {
+	const getUserRecipies = () => {
 		if (!localStorage.getItem("accessToken")) {
 			history.push("/login");
 		} else {
@@ -116,6 +116,14 @@ function HomeContainer() {
 			}).catch(error => {
 				console.log(error);
 			});
+		}
+	}
+
+	useEffect(() => {
+		getUserRecipies();
+
+		return () => {
+			getUserRecipies();
 		}
 	}, []);
 
