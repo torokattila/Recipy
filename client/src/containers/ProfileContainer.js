@@ -82,11 +82,47 @@ function ProfileContainer() {
 		});
 	};
 
+    const handleDeleteProfile = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to delete your profile?",
+            showCancelButton: true,
+            confirmButtonText: "Yes"
+        }).then(response => {
+            if (response.value) {
+                axios.delete("http://localhost:3001/api/deleteprofile", {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then(deleteResponse => {
+                    if (deleteResponse.data.error) {
+                        Swal.fire({
+                            title: "",
+                            text: deleteResponse.data.error,
+                            type: "error"
+                        });
+                    } else {
+                        localStorage.removeItem("accessToken");
+                        window.location.reload(false);
+                    }
+                }).catch(deleteError => {
+                    console.log(deleteError);
+                    Swal.fire({
+                        title: "",
+                        text: "There was an error with the deletion, please try again!",
+                        type: "error"
+                    });;
+                })
+            }
+        })
+    }
+
 	return {
 		handleEditCredentials,
 		setNewUsername,
 		setOldPassword,
-		setNewPassword
+		setNewPassword,
+        handleDeleteProfile
 	};
 }
 

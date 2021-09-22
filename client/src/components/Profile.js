@@ -14,7 +14,8 @@ function Profile() {
 		handleEditCredentials,
 		setNewUsername,
 		setOldPassword,
-		setNewPassword
+		setNewPassword,
+		handleDeleteProfile
 	} = ProfileContainer();
 
 	return (
@@ -89,13 +90,16 @@ function Profile() {
 							<button
 								className="save-changes-button edit-credentials-button"
 								onClick={handleEditCredentials}
-                                disabled={authState.google_id ? true : false}
+								disabled={authState.google_id ? true : false}
 							>
 								save changes
 							</button>
 						</div>
 						<div>
-							<button className="delete-profile-button edit-credentials-button">
+							<button
+								className="delete-profile-button edit-credentials-button"
+								onClick={handleDeleteProfile}
+							>
 								delete profile
 							</button>
 						</div>

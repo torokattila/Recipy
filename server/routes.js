@@ -154,8 +154,6 @@ module.exports = function(app) {
 												process.env.ACCESS_TOKEN_SECRET
 											);
 
-											console.log("normal login");
-
 											res.json({
 												token: accessToken,
 												username: username,
@@ -486,5 +484,19 @@ module.exports = function(app) {
 				error: "You are not able to edit Google credentials!"
 			});
 		}
+	});
+
+	app.delete("/api/deleteprofile", validateToken, (req, res) => {
+		const userId = req.user.id;
+		const deleteProfileQuery = "DELETE FROM user WHERE id = ?; DELETE FROM recipies WHERE user_id = ?;";
+
+		db.query(deleteProfileQuery, [userId, userId], (deleteError, deleteResult) => {
+			if (deleteError) {
+				console.log(deleteError);
+				res.json({ error: "There was an error with the deletion, try again please!" });
+			} else if (deleteResult) {
+				res.json("Profile deleted!");
+			}
+		});
 	});
 };

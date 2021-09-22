@@ -149,10 +149,6 @@ function HomeContainer() {
 
 	useEffect(() => {
 		getUserRecipies();
-
-		return () => {
-			getUserRecipies();
-		};
 	}, []);
 
 	return {
