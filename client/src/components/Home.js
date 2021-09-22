@@ -23,7 +23,7 @@ function Home() {
 		handleDeleteRecipe,
 		modalRecipeTitle,
 		modalRecipeContent,
-		handleGetRandomRecipe,
+		handleGetRandomRecipe
 	} = HomeContainer();
 	const { authState } = useContext(AuthContext);
 
@@ -37,14 +37,15 @@ function Home() {
 				</h3>
 			</div>
 
-			<div className="random-recipe-button-container">
-				<button
-					className="random-recipe-button"
-					onClick={handleGetRandomRecipe}
-				>
-					what should i cook today?
-				</button>
-			</div>
+			{userRecipies.length > 0 &&
+				<div className="random-recipe-button-container">
+					<button
+						className="random-recipe-button"
+						onClick={handleGetRandomRecipe}
+					>
+						what should i cook today?
+					</button>
+				</div>}
 
 			{userRecipies.length === 0
 				? <div className="no-recipies-title-container">
