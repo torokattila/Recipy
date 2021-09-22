@@ -12,6 +12,7 @@ function App() {
 	const [authState, setAuthState] = useState({
 		username: "",
 		id: 0,
+		google_id: null,
 		status: false
 	});
 
@@ -29,6 +30,7 @@ function App() {
 					setAuthState({
 						username: response.data.username,
 						id: response.data.user.id,
+						google_id: response.data.google_id,
 						status: true
 					});
 				}

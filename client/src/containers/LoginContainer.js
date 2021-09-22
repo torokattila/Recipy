@@ -35,6 +35,7 @@ function LoginContainer() {
 					setAuthState({
 						username: response.data.username,
 						id: response.data.id,
+						google_id: response.data.google_id,
 						status: true
 					});
 
@@ -63,10 +64,10 @@ function LoginContainer() {
 					});
 				} else {
 					localStorage.setItem("accessToken", response.data.token);
-					console.log(response.data);
 					setAuthState({
 						username: response.data.username,
 						id: response.data.id,
+						google_id: response.data.google_id,
 						status: true
 					});
 

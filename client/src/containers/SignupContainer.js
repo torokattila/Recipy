@@ -35,7 +35,8 @@ function SignupContainer() {
                     setAuthState({
                         username: response.data.username,
                         id: response.data.id,
-                        status: true
+						google_id: response.data.google_id,
+                        status: true,
                     });
 
                     history.push("/");
