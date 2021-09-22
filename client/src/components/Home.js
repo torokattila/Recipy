@@ -22,7 +22,8 @@ function Home() {
 		userRecipies,
 		handleDeleteRecipe,
 		modalRecipeTitle,
-		modalRecipeContent
+		modalRecipeContent,
+		handleGetRandomRecipe,
 	} = HomeContainer();
 	const { authState } = useContext(AuthContext);
 
@@ -31,7 +32,18 @@ function Home() {
 			<Navbar />
 
 			<div className="welcome-message-container">
-				<h3 className="welcome-message">Welcome {authState.username}!</h3>
+				<h3 className="welcome-message">
+					Welcome {authState.username}!
+				</h3>
+			</div>
+
+			<div className="random-recipe-button-container">
+				<button
+					className="random-recipe-button"
+					onClick={handleGetRandomRecipe}
+				>
+					what should i cook today?
+				</button>
 			</div>
 
 			{userRecipies.length === 0
