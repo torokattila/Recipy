@@ -1,0 +1,189 @@
+.profile-page-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 11vw;
+    padding-bottom: 5vw;
+}
+
+.edit-credentials-container {
+    width: 50vw;
+    height: auto;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 3vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.username-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.username-inputs-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-credentials-label {
+    font-size: 1.6vw;
+    font-family: 'Bree Serif', serif;
+    color: #ef3976;
+}
+
+.edit-credentials-input {
+    border: none;
+    border-bottom: 1px solid grey;
+    transition: 0.2s;
+    font-size: 1.2vw;
+    text-align: center;
+    padding: 0.7vw;
+    margin-top: 2vw;
+    color: #ef3976;
+    font-family: 'Bree Serif', serif;
+    width: 20vw;
+}
+
+.edit-credentials-input:focus {
+    outline: none;
+    transition: 0.2s;
+    border-bottom: 2px solid #ef3976;
+}
+
+.password-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2vw;
+}
+
+.edit-credentials-buttons-container {
+    margin: 3.5vw 0 1vw 0;
+}
+
+.edit-credentials-button {
+    margin: 1vw;
+    border: none;
+    padding: 1.2vw;
+    text-transform: uppercase;
+    font-size: 1vw;
+    cursor: pointer;
+    width: 20vw;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    font-family: 'Bree Serif', serif;
+    transition: 0.4s;
+}
+
+.edit-credentials-button:hover {
+    transition: 0.4s;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+.save-changes-button {
+    background-color: #f06292;
+    color: #fff;
+}
+
+.save-changes-button:hover {
+    transition: 0.4s;
+    background-color: #e9316e;
+}
+
+.delete-profile-button {
+    color: #fff;
+    background-color: #D50000;
+}
+
+.delete-profile-button:hover {
+    transition: 0.4s;
+    background-color: #B71C1C;
+}
+
+.show-password-icon-profile-page {
+    position: absolute;
+    margin-top: 2.5vw;
+    font-size: 1.5vw !important;
+    margin-left: -3vw;
+    color: black !important;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .profile-page-container {
+        padding-top: 38vw;
+        padding-bottom: 15vw;
+    }
+    
+    .edit-credentials-container {
+        width: 70vw;
+        padding: 7vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .edit-credentials-label {
+        margin-top: 7vw;
+        font-size: 6vw;
+    }
+    
+    .edit-credentials-input {
+        font-size: 4.8vw;
+        padding: 2vw;
+        margin-top: 4vw;
+        width: 45vw;
+    }
+    
+    .edit-credentials-buttons-container {
+        margin: 12vw 0 4vw 0;
+    }
+    
+    .edit-credentials-button {
+        margin: 3vw;
+        padding: 3vw;
+        font-size: 3.7vw;
+        width: 55vw;
+    }
+    
+    .edit-credentials-button:hover {
+        transition: 0.4s;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    }
+    
+    .save-changes-button {
+        background-color: #f06292;
+        color: #fff;
+    }
+    
+    .save-changes-button:hover {
+        transition: 0.4s;
+        background-color: #e9316e;
+    }
+    
+    .delete-profile-button {
+        color: #fff;
+        background-color: #D50000;
+    }
+    
+    .delete-profile-button:hover {
+        transition: 0.4s;
+        background-color: #B71C1C;
+    }
+    
+    .show-password-icon-profile-page {
+        margin-top: 6vw;
+        font-size: 5vw !important;
+        margin-left: -7vw;
+        color: black !important;
+        cursor: pointer;
+    }
+}
