@@ -8,6 +8,12 @@
 	padding-bottom: 5vw;
 }
 
+.flag-icon {
+	width: 2.5vw;
+	height: auto;
+	border: 2px solid #fff;
+}
+
 .login-page-main-title {
 	font-family: 'Rampart One', cursive;
 	font-size: 5vw;
@@ -166,6 +172,11 @@
 		padding-bottom: 20vw;
 	}
 
+	.flag-icon {
+		width: 10vw;
+		height: auto;
+	}
+
 	.login-page-main-title {
 		font-family: 'Rampart One', cursive;
 		font-size: 15vw;
@@ -215,7 +226,7 @@
 		border: none;
 		color: #fff;
 		padding: 3.5vw;
-		width: 30vw;
+		width: 37vw;
 		font-size: 3.5vw;
 	}
 
@@ -262,7 +273,7 @@
 		border-radius: 30px !important;
 		padding: 0.3vw !important;
 		border: 2px solid #ef3976 !important;
-		width: 30vw !important;
+		width: 37vw !important;
 		font-size: 3.5vw !important;
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
 		transition: 0.4s !important;

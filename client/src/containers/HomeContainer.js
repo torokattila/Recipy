@@ -64,7 +64,7 @@ function HomeContainer() {
 					});
 				} else {
 					handleCloseModal();
-					window.location.reload(false);
+					// window.location.reload(false);
 				}
 			})
 			.catch(error => {
@@ -100,16 +100,11 @@ function HomeContainer() {
 									type: "error"
 								});
 							} else {
-								console.log(response);
 								Swal.fire({
 									title: "",
 									text: response.data,
 									type: "success"
-								}).then(alertResponse => {
-									if (alertResponse.value) {
-										window.location.reload(false);
-									}
-								});
+								})
 							}
 						})
 						.catch(error => {
@@ -149,7 +144,7 @@ function HomeContainer() {
 
 	useEffect(() => {
 		getUserRecipies();
-	}, []);
+	});
 
 	return {
 		recipeModalId,

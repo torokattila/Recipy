@@ -7,13 +7,25 @@ import { AuthContext } from "../helpers/AuthContext";
 function LoginContainer() {
 	const [loginUsername, setLoginUsername] = useState("");
 	const [loginPassword, setLoginPassword] = useState("");
-    const [hidePassword, setHidePassword] = useState(true);
+	const [hidePassword, setHidePassword] = useState(true);
 	const [isPassword, setIsPassword] = useState(true);
 
-    const { setAuthState } = useContext(AuthContext);
-    const history = useHistory();
+	const { setAuthState } = useContext(AuthContext);
+	const history = useHistory();
 
-    const togglePasswordIcon = () => {
+	const handleChangeLanguage = languageType => {
+		const data = { language: languageType };
+		axios
+			.post("http://localhost:3001/api/changelanguage", data)
+			.then(response => {
+				window.location.reload(false);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	};
+
+	const togglePasswordIcon = () => {
 		setHidePassword(!hidePassword);
 		setIsPassword(!isPassword);
 	};
@@ -84,13 +96,14 @@ function LoginContainer() {
 		setLoginUsername,
 		loginPassword,
 		setLoginPassword,
-        isPassword,
-        setIsPassword,
-        handleLogin,
-        loginGoogle,
-        hidePassword,
-        setHidePassword,
-        togglePasswordIcon
+		isPassword,
+		setIsPassword,
+		handleLogin,
+		loginGoogle,
+		hidePassword,
+		setHidePassword,
+		togglePasswordIcon,
+		handleChangeLanguage
 	};
 }
 

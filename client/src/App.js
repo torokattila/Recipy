@@ -15,6 +15,7 @@ function App() {
 		google_id: null,
 		status: false
 	});
+	const [pageLanguage, setpageLanguage] = useState("EN");
 
 	useEffect(() => {
 		axios
@@ -40,9 +41,17 @@ function App() {
 			});
 	}, []);
 
+	useEffect(() => {
+		axios.get("http://localhost:3001/api/getlanguage").then(response => {
+			setpageLanguage(response.data.pageLanguage)
+		}).catch(error => {
+			console.log(error);
+		});
+	}, []);
+
 	return (
 		<div className="App">
-			<AuthContext.Provider value={{ authState, setAuthState }}>
+			<AuthContext.Provider value={{ authState, setAuthState, pageLanguage }}>
 				<Router>
 					<Switch>
 						<>

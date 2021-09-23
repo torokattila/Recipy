@@ -43,6 +43,33 @@ module.exports = function(app) {
 		});
 	});
 
+	app.post("/api/changelanguage", (req, res) => {
+		const languageType = req.body;
+		const updateLanguageQuery = "UPDATE page_language SET language = ? WHERE id = 1;";
+
+		db.query(updateLanguageQuery, languageType.language, (changeLanguageError, changeLanguageResult) => {
+			if (changeLanguageError) {
+				console.log(changeLanguageError);
+				res.json({ error: "We could not change the language" });
+			} else if (changeLanguageResult) {
+				res.json({ successMessage: "Language changed" });
+			}
+		});
+	});
+
+	app.get("/api/getlanguage", (req, res) => {
+		const getLanguageQuery = "SELECT language FROM page_language WHERE id = 1";
+
+		db.query(getLanguageQuery, (getLanguageError, getLanguageResult) => {
+			if (getLanguageError) {
+				console.log(getLanguageError);
+				res.json({ error: "There was an error with getting the language!" });
+			} else if (getLanguageResult) {
+				res.json({ pageLanguage: getLanguageResult[0].language });
+			}
+		});
+	});
+
 	app.post("/api/login", (req, res) => {
 		const { username, password, googleId } = req.body;
 
