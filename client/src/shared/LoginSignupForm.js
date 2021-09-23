@@ -119,23 +119,22 @@ function LoginSignupForm({ pageName }) {
 						</span>
 					</div>
 
-					{pageName === "Sign up" ||
-						(pageName === "Regisztráció" &&
-							<div>
-								<input
-									className="credentials-input-field"
-									type={isPassword ? "password" : "text"}
-									id="login-password-again"
-									placeholder={
-										pageLanguage === "EN"
-											? "Confirm password"
-											: "Jelszó megerősítése"
-									}
-									autoComplete="off"
-									onChange={event =>
-										setPasswordAgain(event.target.value)}
-								/>
-							</div>)}
+					{(pageName === "Sign up" || pageName === "Regisztráció") &&
+						<div>
+							<input
+								className="credentials-input-field"
+								type={isPassword ? "password" : "text"}
+								id="login-password-again"
+								placeholder={
+									pageLanguage === "EN"
+										? "Confirm password"
+										: "Jelszó megerősítése"
+								}
+								autoComplete="off"
+								onChange={event =>
+									setPasswordAgain(event.target.value)}
+							/>
+						</div>}
 
 					<div className="login-button-container">
 						<button
