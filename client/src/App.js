@@ -18,8 +18,17 @@ function App() {
 	const [pageLanguage, setpageLanguage] = useState("EN");
 
 	useEffect(() => {
+		const returnedLanguage = localStorage.getItem("pageLanguage");
+
+		setpageLanguage(returnedLanguage);
+	}, []);
+
+	useEffect(() => {
 		axios
 			.get("http://localhost:3001/api/auth", {
+				params: {
+					languageToBackend: pageLanguage
+				},
 				headers: {
 					accessToken: localStorage.getItem("accessToken")
 				}
@@ -39,14 +48,6 @@ function App() {
 			.catch(error => {
 				console.log(error);
 			});
-	}, []);
-
-	useEffect(() => {
-		axios.get("http://localhost:3001/api/getlanguage").then(response => {
-			setpageLanguage(response.data.pageLanguage)
-		}).catch(error => {
-			console.log(error);
-		});
 	}, []);
 
 	return (

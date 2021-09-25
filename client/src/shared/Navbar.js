@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "../helpers/AuthContext";
 import HomeIcon from "@material-ui/icons/Home";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import ExitToAppRounded from "@material-ui/icons/ExitToAppRounded";
@@ -9,6 +10,7 @@ import NavbarContainer from "../containers/NavbarContainer";
 import "./Navbar.css";
 
 function Navbar() {
+	const { pageLanguage } = useContext(AuthContext);
 	const [authState, setAuthState] = useState({
 		username: "",
 		id: 0,
@@ -57,7 +59,10 @@ function Navbar() {
 					}}
 				/>
 				<ul>
-					<Tooltip title="Home Page" arrow>
+					<Tooltip
+						title={pageLanguage === "EN" ? "Home Page" : "Főoldal"}
+						arrow
+					>
 						<li>
 							<HomeIcon
 								className="home-icon"
@@ -68,7 +73,10 @@ function Navbar() {
 						</li>
 					</Tooltip>
 
-					<Tooltip title="Profile" arrow>
+					<Tooltip
+						title={pageLanguage === "EN" ? "Profile" : "Profil"}
+						arrow
+					>
 						<li>
 							<AccountCircle
 								className="profile-icon"
@@ -77,7 +85,12 @@ function Navbar() {
 						</li>
 					</Tooltip>
 
-					<Tooltip title="Logout" arrow>
+					<Tooltip
+						title={
+							pageLanguage === "EN" ? "Logout" : "Kijelentkezés"
+						}
+						arrow
+					>
 						<li>
 							<ExitToAppRounded
 								className="logout-icon"

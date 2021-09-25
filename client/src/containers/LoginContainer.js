@@ -10,19 +10,12 @@ function LoginContainer() {
 	const [hidePassword, setHidePassword] = useState(true);
 	const [isPassword, setIsPassword] = useState(true);
 
-	const { setAuthState } = useContext(AuthContext);
+	const { setAuthState, pageLanguage } = useContext(AuthContext);
 	const history = useHistory();
 
 	const handleChangeLanguage = languageType => {
-		const data = { language: languageType };
-		axios
-			.post("http://localhost:3001/api/changelanguage", data)
-			.then(response => {
-				window.location.reload(false);
-			})
-			.catch(error => {
-				console.log(error);
-			});
+		localStorage.setItem("pageLanguage", languageType);
+		window.location.reload(false);
 	};
 
 	const togglePasswordIcon = () => {
@@ -31,7 +24,11 @@ function LoginContainer() {
 	};
 
 	const handleLogin = () => {
-		const data = { username: loginUsername, password: loginPassword };
+		const data = {
+			username: loginUsername,
+			password: loginPassword,
+			languageToBackend: pageLanguage
+		};
 
 		axios
 			.post("http://localhost:3001/api/login", data)
@@ -62,7 +59,8 @@ function LoginContainer() {
 	const loginGoogle = response => {
 		const data = {
 			username: response.profileObj.givenName,
-			googleId: response.profileObj.googleId
+			googleId: response.profileObj.googleId,
+			languageToBackend: pageLanguage
 		};
 
 		axios

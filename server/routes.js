@@ -25,6 +25,7 @@ module.exports = function(app) {
 
 	app.get("/api/auth", validateToken, (req, res) => {
 		const userId = req.user.id;
+		const { languageToBackend } = req.query;
 
 		const getUsernameQuery =
 			"SELECT username, google_id FROM user WHERE id = ?;";
@@ -32,7 +33,12 @@ module.exports = function(app) {
 		db.query(getUsernameQuery, userId, (error, result) => {
 			if (error) {
 				console.log(error);
-				res.json({ error: "User does not exist!" });
+				res.json({
+					error:
+						languageToBackend === "EN"
+							? "User does not exist!"
+							: "Nem létezik ilyen felhasználó"
+				});
 			} else if (result.length > 0) {
 				res.json({
 					user: req.user,
@@ -43,35 +49,8 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post("/api/changelanguage", (req, res) => {
-		const languageType = req.body;
-		const updateLanguageQuery = "UPDATE page_language SET language = ? WHERE id = 1;";
-
-		db.query(updateLanguageQuery, languageType.language, (changeLanguageError, changeLanguageResult) => {
-			if (changeLanguageError) {
-				console.log(changeLanguageError);
-				res.json({ error: "We could not change the language" });
-			} else if (changeLanguageResult) {
-				res.json({ successMessage: "Language changed" });
-			}
-		});
-	});
-
-	app.get("/api/getlanguage", (req, res) => {
-		const getLanguageQuery = "SELECT language FROM page_language WHERE id = 1";
-
-		db.query(getLanguageQuery, (getLanguageError, getLanguageResult) => {
-			if (getLanguageError) {
-				console.log(getLanguageError);
-				res.json({ error: "There was an error with getting the language!" });
-			} else if (getLanguageResult) {
-				res.json({ pageLanguage: getLanguageResult[0].language });
-			}
-		});
-	});
-
 	app.post("/api/login", (req, res) => {
-		const { username, password, googleId } = req.body;
+		const { username, password, googleId, languageToBackend } = req.body;
 
 		const sqlSelectByUsername = "SELECT * FROM user WHERE username = ?;";
 		const sqlSelectByGoogleId = "SELECT * FROM user WHERE google_id = ?;";
@@ -87,7 +66,10 @@ module.exports = function(app) {
 						if (googleSelectError) {
 							console.log(googleSelectError);
 							res.json({
-								error: "There is no user with this google ID!"
+								error:
+									languageToBackend === "EN"
+										? "There is no user with this google ID!"
+										: "Nem létezik felhasználó ilyen Google azonosítóval!"
 							});
 						}
 
@@ -114,7 +96,9 @@ module.exports = function(app) {
 										console.log(googleInsertError);
 										res.json({
 											error:
-												"There was an error with Google login, please try again!"
+												languageToBackend === "EN"
+													? "There was an error with Google login, please try again!"
+													: "Hiba a Google bejelentkezéssel, kérjük próbálja újra!"
 										});
 									} else if (googleInsertResult) {
 										const accessToken = sign(
@@ -140,15 +124,23 @@ module.exports = function(app) {
 				if (username.trim() === "" && password.trim() === "") {
 					res.json({
 						error:
-							"You have to fill in both username and password field!"
+							languageToBackend === "EN"
+								? "You have to fill in both username and password field!"
+								: "A felhasználónév és a jelszó mező kitöltése kötelező!"
 					});
 				} else if (username.trim() === "") {
 					res.json({
-						error: "Please fill in the username field!"
+						error:
+							languageToBackend === "EN"
+								? "Please fill in the username field!"
+								: "A felhasználónév mező kitöltése kötelező!"
 					});
 				} else if (password.trim() === "") {
 					res.json({
-						error: "Please fill in the password field!"
+						error:
+							languageToBackend === "EN"
+								? "Please fill in the password field!"
+								: "A jelszó mező kitöltése kötelező!"
 					});
 				} else {
 					db.query(
@@ -159,7 +151,9 @@ module.exports = function(app) {
 								console.log(error);
 								res.json({
 									error:
-										"There is no user with this username!"
+										languageToBackend === "EN"
+											? "There is no user with this username!"
+											: "Nem található felhasználó ilyen felhasználónévvel!"
 								});
 							} else if (selectResult.length > 0) {
 								bcrypt.compare(
@@ -171,7 +165,10 @@ module.exports = function(app) {
 									) => {
 										if (!comparePasswordResult) {
 											res.json({
-												error: "Wrong password! "
+												error:
+													languageToBackend === "EN"
+														? "Wrong password! "
+														: "Hibás jelszó!"
 											});
 										} else if (comparePasswordResult) {
 											const accessToken = sign(
@@ -192,7 +189,12 @@ module.exports = function(app) {
 									}
 								);
 							} else {
-								res.json({ error: "Wrong credentials!" });
+								res.json({
+									error:
+										languageToBackend === "EN"
+											? "Wrong credentials!"
+											: "Hibás bejelentkezési adatok!"
+								});
 								console.log("Wrong credentials!");
 							}
 						}
@@ -202,7 +204,9 @@ module.exports = function(app) {
 		} catch (error) {
 			res.json({
 				error:
-					"There was an error with the Login process, please try again!"
+					languageToBackend === "EN"
+						? "There was an error with the Login process, please try again!"
+						: "Hiba adódott a bejelentkezéssel, kérjük próbálja újra!"
 			});
 		}
 	});
@@ -210,7 +214,7 @@ module.exports = function(app) {
 	const saltRounds = 10;
 
 	app.post("/api/register", (req, res) => {
-		let { username, password, passwordAgain } = req.body;
+		let { username, password, passwordAgain, languageToBackend } = req.body;
 
 		username = username.trim();
 		password = password.trim();
@@ -220,15 +224,40 @@ module.exports = function(app) {
 			"SELECT username FROM user WHERE username = ?";
 		const sqlInsertUser = "INSERT INTO user SET username = ?, password = ?";
 
-		if (username === "") {
-			res.json({ error: "Username field is required!" });
+		if (username === "" && password === "" && passwordAgain === "") {
+			res.json({
+				error:
+					languageToBackend === "EN"
+						? "Please fill all the input fields!"
+						: "Az összes mező kitöltése kötelező!"
+			});
+		} else if (username === "") {
+			res.json({
+				error:
+					languageToBackend === "EN"
+						? "Username field is required!"
+						: "A Felhasználónév mező kitöltése kötelező!"
+			});
 		} else if (password === "") {
-			res.json({ error: "Password field is required!" });
+			res.json({
+				error:
+					languageToBackend === "EN"
+						? "Password field is required!"
+						: "A Jelszó mező kitöltése kötelező!"
+			});
 		} else if (passwordAgain === "") {
-			res.json({ error: "Confirm password field is required!" });
+			res.json({
+				error:
+					languageToBackend === "EN"
+						? "Confirm password field is required!"
+						: "A Jelszó megerősítése mező kitöltése kötelező!"
+			});
 		} else if (password !== passwordAgain) {
 			res.json({
-				error: "Password and Confirm password field must match!"
+				error:
+					languageToBackend === "EN"
+						? "Password and Confirm password field must match!"
+						: "A Jelszó és a Jelszó megerősítése mező nem egyezik!"
 			});
 		} else {
 			db.query(
@@ -240,7 +269,10 @@ module.exports = function(app) {
 						res.json(selectError);
 					} else if (selectResult.length > 0) {
 						res.json({
-							error: "This username is already exist!",
+							error:
+								languageToBackend === "EN"
+									? "This username is already exist, please choose a different username!"
+									: "Ilyen felhasználónévvel már létezik felhasználó, kérjük válasszon másik felhasználónevet!",
 							success: false
 						});
 					} else {
@@ -261,7 +293,9 @@ module.exports = function(app) {
 											console.log(insertError);
 											res.json({
 												error:
-													"There was an error with the registration, please try again!"
+													languageToBackend === "EN"
+														? "There was an error with the registration, please try again!"
+														: "Hiba adódott a regisztrációval, kérjük próbálja újra!"
 											});
 										} else if (insertResult) {
 											const accessToken = sign(
@@ -289,24 +323,33 @@ module.exports = function(app) {
 	});
 
 	app.post("/api/createrecipe", validateToken, (req, res) => {
-		let recipe = req.body;
+		let { title, preparation, languageToBackend } = req.body;
+
 		const userId = req.user.id;
 		const insertRecipeQuery =
 			"INSERT INTO recipies SET user_id = ?, title = ?, content = ?, created_at = NOW();";
 
-		recipe.title = recipe.title.trim();
+		title = title.trim();
 
-		if (recipe.title === "") {
-			res.json({ error: "Add a title to your recipe!" });
+		if (title === "") {
+			res.json({
+				error:
+					languageToBackend === "EN"
+						? "Add a title to your recipe!"
+						: "Adj meg egy címet vagy nevet a receptednek!"
+			});
 		} else {
 			db.query(
 				insertRecipeQuery,
-				[userId, recipe.title, recipe.preparation],
+				[userId, title, preparation],
 				(insertError, insertResult) => {
 					if (insertError) {
 						console.log(insertError);
 						res.json({
-							error: "Something went wrong, please try again!"
+							error:
+								languageToBackend === "EN"
+									? "Something went wrong, please try again!"
+									: "Hiba adódott,kérjük próbálja újra!"
 						});
 					} else if (insertResult) {
 						res.json({ success: "Created the recipe" });
@@ -318,6 +361,7 @@ module.exports = function(app) {
 
 	app.get("/api/getrecipies", validateToken, (req, res) => {
 		const userId = req.user.id;
+
 		const selectRecipiesQuery =
 			"SELECT * FROM recipies WHERE user_id = ? ORDER BY created_at DESC";
 
@@ -335,6 +379,7 @@ module.exports = function(app) {
 
 	app.delete("/api/deleterecipe/:recipeId", validateToken, (req, res) => {
 		const recipeId = req.params.recipeId;
+		const { languageToBackend } = req.body;
 		const deleteRecipeQuery = "DELETE FROM recipies WHERE recipe_id = ?;";
 
 		db.query(deleteRecipeQuery, recipeId, (deleteError, deleteResult) => {
@@ -342,10 +387,16 @@ module.exports = function(app) {
 				console.log(deleteError);
 				res.json({
 					error:
-						"There was an error with the delete, please try again!"
+						languageToBackend === "EN"
+							? "There was an error with the delete, please try again!"
+							: "Hiba adódott a törléssel, kérjük próbálja újra!"
 				});
 			} else if (deleteResult) {
-				res.json("Recipe deleted!");
+				res.json(
+					languageToBackend === "EN"
+						? "Recipe deleted!"
+						: "Recept törölve!"
+				);
 			}
 		});
 	});
@@ -356,7 +407,8 @@ module.exports = function(app) {
 			newUsername,
 			oldPassword,
 			newPassword,
-			googleId
+			googleId,
+			languageToBackend
 		} = req.body;
 		const userId = req.user.id;
 		const getUserQuery = "SELECT * FROM user WHERE username = ?;";
@@ -369,7 +421,10 @@ module.exports = function(app) {
 					if (getUserError) {
 						console.log(getUserError);
 						res.json({
-							error: "There is no user with this username!"
+							error:
+								languageToBackend === "EN"
+									? "There is no user with this username!"
+									: "Nem létezik felhasználó ilyen felhasználónévvel!"
 						});
 					} else if (getUserResult.length > 0) {
 						if (
@@ -397,12 +452,18 @@ module.exports = function(app) {
 												console.log(updateError);
 												res.json({
 													error:
-														"There was an error with the update, please try again!"
+														languageToBackend ===
+														"EN"
+															? "There was an error with the update, please try again!"
+															: "Hiba adódott a szerkesztéssel, kérjük próbáld újra!"
 												});
 											} else if (updateResult) {
 												res.json({
 													successMessage:
-														"Updated profile datas!"
+														languageToBackend ===
+														"EN"
+															? "Updated profile datas!"
+															: "Profil adatok frissítve!"
 												});
 											}
 										}
@@ -425,12 +486,16 @@ module.exports = function(app) {
 										console.log(updateError);
 										res.json({
 											error:
-												"There was an error with the update, please try again!"
+												languageToBackend === "EN"
+													? "There was an error with the update, please try again!"
+													: "Hiba adódott a szerkesztéssel, kérjük próbáld újra!"
 										});
 									} else if (updateResult) {
 										res.json({
 											successMessage:
-												"Username updated successfully!"
+												languageToBackend === "EN"
+													? "Username updated successfully!"
+													: "Felhasználónév frissítve!"
 										});
 									}
 								}
@@ -439,7 +504,9 @@ module.exports = function(app) {
 							if (oldPassword === "" || newPassword === "") {
 								res.json({
 									error:
-										"You have to fill both old password and new password fields!"
+										languageToBackend === "EN"
+											? "You have to fill both old password and new password fields!"
+											: "Mindkét jelszó mező kitöltése kötelező!"
 								});
 							} else {
 								bcrypt.compare(
@@ -451,7 +518,10 @@ module.exports = function(app) {
 									) => {
 										if (!comparePasswordResult) {
 											res.json({
-												error: "Wrong old password!"
+												error:
+													languageToBackend === "EN"
+														? "Wrong old password!"
+														: "Hibás régi jelszó!"
 											});
 										} else if (comparePasswordResult) {
 											bcrypt.hash(
@@ -484,14 +554,20 @@ module.exports = function(app) {
 																);
 																res.json({
 																	error:
-																		"There was an error with the update, please try again!"
+																		languageToBackend ===
+																		"EN"
+																			? "There was an error with the update, please try again!"
+																			: "Hiba adódott a szerkesztéssel, kérjük próbáld újra!"
 																});
 															} else if (
 																updateResult
 															) {
 																res.json({
 																	successMessage:
-																		"Password updated successfully!"
+																		languageToBackend ===
+																		"EN"
+																			? "Password updated successfully!"
+																			: "Jelszó frissítve!"
 																});
 															}
 														}
@@ -508,22 +584,40 @@ module.exports = function(app) {
 			);
 		} else {
 			res.json({
-				error: "You are not able to edit Google credentials!"
+				error:
+					languageToBackend === "EN"
+						? "You are not able to edit Google credentials!"
+						: "Nincs jogosultságod szerkeszteni a Google adatokat!"
 			});
 		}
 	});
 
 	app.delete("/api/deleteprofile", validateToken, (req, res) => {
 		const userId = req.user.id;
-		const deleteProfileQuery = "DELETE FROM user WHERE id = ?; DELETE FROM recipies WHERE user_id = ?;";
+		const { languageToBackend } = req.body;
+		const deleteProfileQuery =
+			"DELETE FROM user WHERE id = ?; DELETE FROM recipies WHERE user_id = ?;";
 
-		db.query(deleteProfileQuery, [userId, userId], (deleteError, deleteResult) => {
-			if (deleteError) {
-				console.log(deleteError);
-				res.json({ error: "There was an error with the deletion, try again please!" });
-			} else if (deleteResult) {
-				res.json("Profile deleted!");
+		db.query(
+			deleteProfileQuery,
+			[userId, userId],
+			(deleteError, deleteResult) => {
+				if (deleteError) {
+					console.log(deleteError);
+					res.json({
+						error:
+							languageToBackend === "EN"
+								? "There was an error with the deletion, try again please!"
+								: "Hiba adódott a törléssel, kérjük próbáld újra!"
+					});
+				} else if (deleteResult) {
+					res.json(
+						languageToBackend === "EN"
+							? "Profile deleted!"
+							: "Profil törölve!"
+					);
+				}
 			}
-		});
+		);
 	});
 };

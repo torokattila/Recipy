@@ -8,7 +8,7 @@ import { AuthContext } from "../helpers/AuthContext";
 import "./Profile.css";
 
 function Profile() {
-	const { authState } = useContext(AuthContext);
+	const { authState, pageLanguage } = useContext(AuthContext);
 	const { isPassword, hidePassword, togglePasswordIcon } = LoginContainer();
 	const {
 		handleEditCredentials,
@@ -26,7 +26,9 @@ function Profile() {
 				<div className="edit-credentials-container">
 					<div className="username-section">
 						<h2 className="edit-credentials-label">
-							Change username:
+							{pageLanguage === "EN"
+								? "Change username"
+								: "Felhasználónév módosítása"}:
 						</h2>
 
 						<form
@@ -43,7 +45,11 @@ function Profile() {
 							<input
 								type="text"
 								className="edit-credentials-input"
-								placeholder="New username"
+								placeholder={
+									pageLanguage === "EN"
+										? "New username"
+										: "Új felhasználónév"
+								}
 								onChange={event =>
 									setNewUsername(event.target.value)}
 								readOnly={authState.google_id ? true : false}
@@ -53,13 +59,19 @@ function Profile() {
 
 					<div className="password-section">
 						<h2 className="edit-credentials-label">
-							Change password:
+							{pageLanguage === "EN"
+								? "Change password"
+								: "Jelszó módosítása"}:
 						</h2>
 
 						<div>
 							<input
 								type={isPassword ? "password" : "text"}
-								placeholder="Old password"
+								placeholder={
+									pageLanguage === "EN"
+										? "Old password"
+										: "Régi jelszó"
+								}
 								className="edit-credentials-input"
 								onChange={event =>
 									setOldPassword(event.target.value)}
@@ -76,7 +88,11 @@ function Profile() {
 						<div>
 							<input
 								type={isPassword ? "password" : "text"}
-								placeholder="New password"
+								placeholder={
+									pageLanguage === "EN"
+										? "New password"
+										: "Új jelszó"
+								}
 								className="edit-credentials-input"
 								onChange={event =>
 									setNewPassword(event.target.value)}
@@ -92,7 +108,9 @@ function Profile() {
 								onClick={handleEditCredentials}
 								disabled={authState.google_id ? true : false}
 							>
-								save changes
+								{pageLanguage === "EN"
+									? "save changes"
+									: "módosítás"}
 							</button>
 						</div>
 						<div>
@@ -100,7 +118,9 @@ function Profile() {
 								className="delete-profile-button edit-credentials-button"
 								onClick={handleDeleteProfile}
 							>
-								delete profile
+								{pageLanguage === "EN"
+									? "delete profile"
+									: "profil törlése"}
 							</button>
 						</div>
 					</div>

@@ -25,7 +25,7 @@ function Home() {
 		modalRecipeContent,
 		handleGetRandomRecipe
 	} = HomeContainer();
-	const { authState } = useContext(AuthContext);
+	const { authState, pageLanguage } = useContext(AuthContext);
 
 	return (
 		<div>
@@ -33,7 +33,8 @@ function Home() {
 
 			<div className="welcome-message-container">
 				<h3 className="welcome-message">
-					Welcome {authState.username}!
+					{pageLanguage === "EN" ? "Welcome" : "Szia"}{" "}
+					{authState.username}!
 				</h3>
 			</div>
 
@@ -43,16 +44,23 @@ function Home() {
 						className="random-recipe-button"
 						onClick={handleGetRandomRecipe}
 					>
-						what should i cook today?
+						{pageLanguage === "EN"
+							? "what should i cook today?"
+							: "mit főzzek ma?"}
 					</button>
 				</div>}
 
 			{userRecipies.length === 0
 				? <div className="no-recipies-title-container">
-						<p>Looks like You have no recipies yet.</p>
 						<p>
-							Click the + sign on the bottom of the screen to create
-							some!
+							{pageLanguage === "EN"
+								? "Looks like You have no recipies yet."
+								: "Úgy tűnik még nincs egy recepted sem."}
+						</p>
+						<p>
+							{pageLanguage === "EN"
+								? "Click the + sign on the bottom of the screen to create some!"
+								: "Kattints a + gombra a képernyő alján, hogy létrehozz párat!"}
 						</p>
 					</div>
 				: <div className="recipies-list-container">
@@ -94,7 +102,14 @@ function Home() {
 					/>}
 
 			<div className="add-recipe-button-container">
-				<Tooltip title="Add new recipe" arrow>
+				<Tooltip
+					title={
+						pageLanguage === "EN"
+							? "Add new recipe"
+							: "Recept létrehozása"
+					}
+					arrow
+				>
 					<button
 						className="add-recipe-button"
 						onClick={handleOpenModal}

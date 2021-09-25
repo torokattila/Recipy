@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../helpers/AuthContext";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 function HomeContainer() {
+	const { pageLanguage } = useContext(AuthContext);
 	const [openModal, setOpenModal] = useState(false);
 	const [isCreateRecipeModal, setIsCreateRecipeModal] = useState(false);
 	const [recipeModalId, setRecipeModalId] = useState(null);
@@ -33,7 +35,8 @@ function HomeContainer() {
 	};
 
 	const handleGetRandomRecipe = () => {
-		const randomElement = userRecipies[Math.floor(Math.random() * userRecipies.length)];
+		const randomElement =
+			userRecipies[Math.floor(Math.random() * userRecipies.length)];
 
 		setOpenModal(true);
 		setIsCreateRecipeModal(false);
@@ -47,7 +50,11 @@ function HomeContainer() {
 	};
 
 	const handleSubmitRecipe = () => {
-		const data = { title: recipeTitle, preparation: recipePreparation };
+		const data = {
+			title: recipeTitle,
+			preparation: recipePreparation,
+			languageToBackend: pageLanguage
+		};
 
 		axios
 			.post("http://localhost:3001/api/createrecipe", data, {
@@ -64,7 +71,6 @@ function HomeContainer() {
 					});
 				} else {
 					handleCloseModal();
-					// window.location.reload(false);
 				}
 			})
 			.catch(error => {
@@ -74,9 +80,14 @@ function HomeContainer() {
 
 	const handleDeleteRecipe = id => {
 		Swal.fire({
-			title: "Are you sure?",
-			text: "Do you want to delete this recipe?",
-			showCancelButton: true
+			title:
+				pageLanguage === "EN" ? "Are you sure?" : "Biztos vagy benne?",
+			text:
+				pageLanguage === "EN"
+					? "Do you want to delete this recipe?"
+					: "Biztos törölni szeretnéd ezt a receptet?",
+			showCancelButton: true,
+			cancelButtonText: pageLanguage === "EN" ? "Cancel" : "Mégse"
 		})
 			.then(confirmRespone => {
 				if (confirmRespone.value) {
@@ -88,6 +99,9 @@ function HomeContainer() {
 									accessToken: localStorage.getItem(
 										"accessToken"
 									)
+								},
+								data: {
+									languageToBackend: pageLanguage
 								}
 							}
 						)
@@ -104,7 +118,7 @@ function HomeContainer() {
 									title: "",
 									text: response.data,
 									type: "success"
-								})
+								});
 							}
 						})
 						.catch(error => {
@@ -117,7 +131,9 @@ function HomeContainer() {
 				Swal.fire({
 					title: "",
 					text:
-						"There was an error with the delete, try again please!",
+						pageLanguage === "EN"
+							? "There was an error with the delete, try again please!"
+							: "Hiba adódott a törléssel, kérjük próbálja újra!",
 					type: "error"
 				});
 			});
@@ -160,7 +176,7 @@ function HomeContainer() {
 		handleDeleteRecipe,
 		modalRecipeTitle,
 		modalRecipeContent,
-		handleGetRandomRecipe,
+		handleGetRandomRecipe
 	};
 }
 

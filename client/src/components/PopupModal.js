@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../helpers/AuthContext";
 import Tooltip from "@material-ui/core/Tooltip";
 import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
@@ -11,12 +12,12 @@ function PopupModal({
 	recipeTitle,
 	recipeContent,
 	openModal,
-	handleOpenRecipeModal,
 	handleCloseModal,
 	handleSubmitRecipe,
 	setRecipeTitle,
 	setRecipePreparation
 }) {
+	const { pageLanguage } = useContext(AuthContext);
 	const useStyles = makeStyles(theme => ({
 		modal: {
 			display: "flex",
@@ -33,6 +34,10 @@ function PopupModal({
 		}
 	}));
 	const modalClasses = useStyles();
+	let translatedCreateRecipeTitle =
+		pageLanguage === "EN"
+			? "Create your new recipe"
+			: "Új recept létrehozása";
 
 	return (
 		<Modal
@@ -51,7 +56,7 @@ function PopupModal({
 				<div id="popup-modal" className={modalClasses.paper}>
 					<h2 className="modal-title">
 						{type === "create-form"
-							? "Create your new recipe"
+							? translatedCreateRecipeTitle
 							: recipeTitle}
 					</h2>
 
@@ -60,7 +65,11 @@ function PopupModal({
 							{type === "create-form"
 								? <input
 										type="text"
-										placeholder="Recipe title"
+										placeholder={
+											pageLanguage === "EN"
+												? "Recipe title"
+												: "Recept címe"
+										}
 										className="recipe-title-input"
 										onChange={event =>
 											setRecipeTitle(event.target.value)}
@@ -75,7 +84,11 @@ function PopupModal({
 						{type === "create-form" &&
 							<div className="create-recipe-input-container">
 								<textarea
-									placeholder="Preparation"
+									placeholder={
+										pageLanguage === "EN"
+											? "Preparation"
+											: "Elkészítés"
+									}
 									className="recipe-preparation-textarea"
 									onChange={event =>
 										setRecipePreparation(
@@ -90,12 +103,18 @@ function PopupModal({
 									className="create-recipe-button"
 									onClick={handleSubmitRecipe}
 								>
-									Create
+									{pageLanguage === "EN"
+										? "Create"
+										: "Létrehozás"}
 								</button>
 							</div>}
 					</div>
 
-					<Tooltip title="Close" placement="top" arrow>
+					<Tooltip
+						title={pageLanguage === "EN" ? "Close" : "Bezár"}
+						placement="top"
+						arrow
+					>
 						<button
 							className="close-modal-button"
 							onClick={handleCloseModal}

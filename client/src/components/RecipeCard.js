@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../helpers/AuthContext";
 import Tooltip from "@material-ui/core/Tooltip";
 import "./RecipeCard.css";
 
@@ -9,9 +10,10 @@ function RecipeCard({
 	handleDeleteRecipe,
 	handleOpenRecipeModal
 }) {
+	const { pageLanguage } = useContext(AuthContext);
 	return (
 		<div className="recipe-card-container">
-			<Tooltip title="Delete" arrow>
+			<Tooltip title={pageLanguage === "EN" ? "Delete" : "Törlés"} arrow>
 				<button
 					className="delete-recipe-button"
 					onClick={() => {
