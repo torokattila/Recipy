@@ -20,6 +20,27 @@ setInterval(function() {
 
 db.query(`USE ${db.database}`);
 
+db.query(
+	"CREATE TABLE IF NOT EXISTS `user`" +
+		"(" +
+		"`id` INT(6) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+		"`google_id` VARCHAR(150) DEFAULT NULL, " +
+		"`username` VARCHAR(50) DEFAULT NULL, " +
+		"`password` VARCHAR(255) DEFAULT NULL, " +
+		"`recipe_id` INT(6) UNSIGNED " +
+		");"
+);
+
+db.query(
+	"CREATE TABLE IF NOT EXISTS `recipies`" +
+		"`recipe_id` INT(6) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+		"`user_id` INT(6) UNSIGNED DEFAULT NULL, " +
+		"`title` VARCHAR(255) DEFAULT NULL, " +
+		"`content` TEXT DEFAULT NULL, " +
+		"`created_at` DATETIME DEFAULT NULL " +
+		");"
+);
+
 module.exports = function(app) {
 	app.use(bodyParser.urlencoded({ extended: true }));
 
